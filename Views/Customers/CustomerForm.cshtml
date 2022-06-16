@@ -1,0 +1,65 @@
+@model Vidly.Core6.ViewModels.NewCustomerViewModel
+@{
+  ViewBag.Title ="New";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Save">
+  @Html.HiddenFor(m => m.Customer.Id);
+  
+  <div class="row pb-2">
+    <div class="row pb-2">
+      <h2 class="text-primnary">Create Category</h2>
+      <hr />
+    </div>
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+      <div class="col-4">
+      <label asp-for="@Model.Customer.Name">Name:</label>
+      <input asp-for="@Model.Customer.Name" class="form-control">
+      </div>      
+    </div>
+    <div class="form-group">
+      <div class="col-4">
+      <label asp-for="@Model.Customer.Birthdate">Birth Date:</label>
+      <input asp-for="@Model.Customer.Birthdate" class="form-control">
+      </div>      
+    </div>
+    @* <div class="form-group mt-2 col-4">
+      <label asp-for="@Model.Customer.MembershipTypeId"></label>
+      @Html.DropDownListFor(m => m.Customer.MembershipTypeId, 
+                                 new SelectList(@Model.MembershipTypes, "Id", "Name"), 
+                                 "Select Membership Type", 
+                                 new {@class="form-control"}  
+                            )
+    </div>     *@
+    <div class="form-group mt-2 col-4">
+      <label asp-for="@Model.Customer.MembershipTypeId"></label>
+      <select id="" class="form-control" asp-items="@Model.MemberTypes" onchange="return alert(value)" asp-for="@Model.Customer.MembershipTypeId">
+        <option value="" select>-- Select Memebership Type --</option>
+      </select>
+    </div>
+
+    <div class="checkbox mt-3">
+      <label>
+        <input type="checkbox" asp-for="@Model.Customer.IsSubscribedToNewsletter"> Subscried To News Letter: 
+      </label>      
+    </div>    
+
+    <div class="form-group mt-4">
+      <button type="submit" class="btn btn-primary" style="width: 9.375rem">Create</button>
+      <a asp-controller="Customers" asp-action="Index" class="btn btn-secondary" style="width:9.375rem">
+        Back to list
+      </a>
+
+    </div>
+  </div>
+
+</form>
+
+@section Scripts 
+{
+  @{
+    <partial name="_ValidationScriptsPartial" />
+  }
+}
